@@ -25,6 +25,16 @@ FROM ubuntu:18.04
 ## 3. CMD
 > docker 컨테이너가 시작할 때, 쉘 명령을 지정하는 명령. RUN과 비슷하지만 RUN은 이미지 작성시 실행하는 명령, CMD는 컨테이너를 시작할 때 실행하는 명령어(CMD ['python', 'app.py'].  
 
+```
+1. 더 선호되는 방식 
+CMD ["param1", "param2", ...]
+
+CMD ["/bin/sh", "-c", "echo", "Hello"]
+CMD ["executable", "param1", "param2", ...]
+2. 
+CMD <command> <param1> <param2> ....
+```
+
 ## 4. RUN
 > 쉘 명령을 실행하는 명령(RUN["apt-get", "install", "nginx"]). RUN은 이미지 작성시 실행되며, 일종의 새로운 이미지 layer를 만드는 역할.  
 
@@ -54,11 +64,16 @@ COPY {복사할 파일} {붙여넣을 디렉토리 위치}
 # dockerfile 빌드
 $ docker build -t {이미지명} {작성한 도커파일 경로}
 $ docker build -t frontend .
-$ -t == -tag
+# -t == -tag
 
 # Dockerfile로 빌드한 이미지 실행
-docker run --name {실행image명} -v $(pwd):{workdir} -p {입력포트}:{컨테이너내부포트} {컨테이너명}
-docker run --name front       -v $(pwd):/home/app -p  8080:8080              front-container
+$ docker run --name {실행image명} -v $(pwd):{workdir} -p {입력포트}:{컨테이너내부포트} {컨테이너명}
+$ docker run --name front       -v $(pwd):/home/app -p  8080:8080              front-container
+
+# docker logs 컨테이너ID 또는 이름
+$ docker logs httpdweb1
+
+
 ```
 
 
